@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+  <title>Tinba: Incremental Partitioning for Efficient Trajectory Analytics</title>
+  
+  <meta name="author" content="Ruijie Tian">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" type="text/css" href="./projects.css">
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+  <link rel="icon" type="image/png" href="./logo.png">
+</head>
+
+<body style="width: 100%;">
+    <div style="width: 100%;">
+        <!-- Title -->
+        <div class="root-content" style="padding-top: 30px;">
+            <name>Tinba: Incremental Partitioning for Efficient Trajectory Analytics</name>
+            <br>
+            <div id="author-list"">
+                <a href="https://rq-wu.github.io">Ruijie Tian</a><sup>1</sup>&nbsp;&nbsp;&nbsp;
+                Weishi Zhang<sup>1,2*</sup>&nbsp;&nbsp;&nbsp;
+                <a href="https://scholar.google.com/citations?user=RZLYwR0AAAAJ&hl=en">Fei Wang</a><sup>1</sup>&nbsp;&nbsp;&nbsp;
+                Kemal Polat<sup>3</sup>&nbsp;&nbsp;&nbsp;
+                <a href="https://li-chongyi.github.io/">Fayadh Alenezi</a><sup>4</sup>&nbsp;&nbsp;&nbsp;
+            </div>
+            <div id="institution-list">
+                <sup>1</sup>Information Science and Technology College, Dalian Maritime University, Liaoning, China<br />
+                <sup>2</sup>Key Laboratory of Intelligent Software, Liaoning, China<br />
+                <sup>3</sup>Faculty of Engineering, Bolu Abant Izzet Baysal University, Bolu, Turkey<br />
+                <sup>4</sup>College of Engineering, Jouf University, Saudi Arabia
+            </div>
+            <p id="publication">
+                ADVEI 2023
+            </p>
+            <div id="button-list">
+                <span class="link-button">
+                    <a class="link-button-content" href="#abstract">
+                                           <span>
+                            <svg class="svg-inline--fa fa-file-pdf" aria-hidden="true" style="position: relative; top: 0.25em;" width="1.2em"  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" fill-rule="evenodd" d="M16.9414 4.9757a7.033 7.033 0 0 0-4.9308 2.0646 7.033 7.033 0 0 0-.1232 9.8068l2.395-2.395a3.6455 3.6455 0 0 1 5.1497-5.1478l2.397-2.3989a7.033 7.033 0 0 0-4.8877-1.9297zM7.07 4.9855a7.033 7.033 0 0 0-4.8878 1.9316l2.3911 2.3911a3.6434 3.6434 0 0 1 5.0227.1271l1.7341-2.9737-.0997-.0802A7.033 7.033 0 0 0 7.07 4.9855zm15.0093 2.1721l-2.3892 2.3911a3.6455 3.6455 0 0 1-5.1497 5.1497l-2.4067 2.4068a7.0362 7.0362 0 0 0 9.9456-9.9476zM1.932 7.1674a7.033 7.033 0 0 0-.002 9.6816l2.397-2.397a3.6434 3.6434 0 0 1-.004-4.8916zm7.664 7.4235c-1.38 1.3816-3.5863 1.411-5.0168.1134l-2.397 2.395c2.4693 2.3328 6.263 2.5753 9.0072.5455l.1368-.1115z" fill="white"></path></svg>
+                        </span>
+                        &nbsp; 
+                                                Abstract
+                    </a>
+                </span>
+                <span class="link-button">
+                    <a class="link-button-content" href="#method">
+                        <span>
+                                                       <svg xmlns="http://www.w3.org/2000/svg" class="svg-inline--fa fa-file-pdf" aria-hidden="true" style="position: relative; top: 0.25em; " width="1.2em"  viewBox="0 0 16 16">
+<path fill="currentColor" d="M 2.40625 1.195313 L 1.695313 1.90625 L 2.050781 2.257813 L 2.757813 2.964844 L 3.109375 3.320313 L 3.820313 2.609375 L 3.464844 2.257813 L 2.757813 1.550781 Z M 13.59375 1.195313 L 13.242188 1.550781 L 12.183594 2.609375 L 12.890625 3.320313 L 13.242188 2.964844 L 14.300781 1.90625 Z M 8 2 C 5.796875 2 4 3.796875 4 6 C 4 7.382813 4.605469 8.179688 5.09375 8.859375 C 5.585938 9.535156 6 10.109375 6 11.5 L 6 12.5 C 6 13.148438 6.425781 13.703125 7.007813 13.90625 C 7.003906 13.9375 7 13.96875 7 14 C 7 14.550781 7.449219 15 8 15 C 8.550781 15 9 14.550781 9 14 C 9 13.96875 9 13.9375 8.996094 13.90625 C 9.578125 13.699219 10 13.148438 10 12.5 L 10 11.5 C 10 10.109375 10.414063 9.535156 10.90625 8.859375 C 11.394531 8.179688 12 7.382813 12 6 C 12 3.796875 10.203125 2 8 2 Z M 8 3 C 9.664063 3 11 4.335938 11 6 C 11 7.117188 10.605469 7.570313 10.09375 8.265625 C 9.652344 8.878906 9.214844 9.742188 9.09375 11 L 6.90625 11 C 6.785156 9.742188 6.347656 8.878906 5.90625 8.265625 C 5.394531 7.570313 5 7.117188 5 6 C 5 4.335938 6.335938 3 8 3 Z M 1 6 L 1 7 L 3 7 L 3 6 Z M 13 6 L 13 7 L 15 7 L 15 6 Z M 3.109375 9.679688 L 2.757813 10.035156 L 2.050781 10.742188 L 1.695313 11.09375 L 2.40625 11.800781 L 3.464844 10.742188 L 3.820313 10.390625 Z M 12.890625 9.679688 L 12.183594 10.390625 L 13.59375 11.800781 L 14.300781 11.09375 L 13.242188 10.035156 Z M 7 12 L 9 12 L 9 12.5 C 9 12.78125 8.78125 13 8.5 13 L 7.5 13 C 7.21875 13 7 12.78125 7 12.5 Z"></path>
+</svg>
+                        </span>
+                        &nbsp; 
+                        Method
+                    </a>
+                </span>
+                <span class="link-button">
+                    <a class="link-button-content" href="#results">
+                       
+                        <span>
+                         <svg xmlns="http://www.w3.org/2000/svg" class="svg-inline--fa fa-file-pdf" aria-hidden="true" style="position: relative; top: 0.15em; " width="1em" viewBox="0 0 46 46">
+<path fill="currentColor" d="M 7 2 L 7 48 L 43 48 L 43 14.59375 L 42.71875 14.28125 L 30.71875 2.28125 L 30.40625 2 Z M 9 4 L 29 4 L 29 16 L 41 16 L 41 46 L 9 46 Z M 31 5.4375 L 39.5625 14 L 31 14 Z M 15 22 L 15 24 L 35 24 L 35 22 Z M 15 28 L 15 30 L 31 30 L 31 28 Z M 15 34 L 15 36 L 35 36 L 35 34 Z"></path>
+</svg>
+                        </span>
+                        
+                        &nbsp; 
+                        Results
+                    </a>
+                </span>
+                              <span class="link-button">
+                    <a class="link-button-content", href="#bib">
+                        <span>
+                            <svg class="svg-inline--fa fa-file-pdf" aria-hidden="true" style="position: relative; top: 0.15em;" width="1em" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-bookmarks" viewBox="0 0 16 16"> <path fill="currentColor" fill-rule="evenodd" d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4zm2-1a1 1 0 0 0-1 1v10.566l3.723-2.482a.5.5 0 0 1 .554 0L11 14.566V4a1 1 0 0 0-1-1H4z" fill="white"></path> <path fill="currentColor" fill-rule="evenodd" d="M4.268 1H12a1 1 0 0 1 1 1v11.768l.223.148A.5.5 0 0 0 14 13.5V2a2 2 0 0 0-2-2H6a2 2 0 0 0-1.732 1z" fill="white"></path> </svg>
+                        </span>
+                        &nbsp;  
+                        BibTex
+                    </a>
+                </span>
+            </div>
+        </div>
+                <!-- Paper Information -->
+        <div class="root-content">
+            <div class="section-content">
+            <a name="abstract"></a>
+            <h1 class="section-name"> Abstract </h1>
+            
+                <p class="section-content-text">
+                   待补充。。。  
+                </p>
+            </div>
+
+            <div style="padding-top: 20px;">
+            <a name="method"></a>
+                <h1 class="section-name">Method</h1>
+                
+                <img src="method.png" width="1000"/>
+                <p class="section-content-text">
+                    待补充。。。
+                </p>
+            </div>
+
+            <div style="padding-top: 20px;">
+            <a name="results"></a>
+                <h1 class="section-name">
+                    Visual Comparisons
+                </h1>
+                
+                <img src="result1.png" width="1000"/>
+                <img src="result2.png" width="998" style="margin-top: -4px;"/>
+            </div>
+
+            <div style="padding-top: 20px;">
+                <h1 class="section-name">Acknowledgements</h1>
+                                <p class="section-content-text">
+                                This work was supported by the National Key Research and Development Program of China (2020YFF0410947) and the National Natural Science Foundation of China (62103072). Additional funding was provided by the China Postdoctoral Science Foundation (2021M690502).
+                                </p>
+            </div>
+
+            <div>
+            <a name="bib"></a>
+                <h1 class="section-name" style="margin-top: 30px; text-align: left; font-size: 25px;">
+                    BibTex
+                </h1>
+                
+                <pre style="margin-top: 5px;" class="bibtex">
+                    <code>
+@inproceedings{tian2023,
+    title={Tinba: Incremental Partitioning for Efficient Trajectory Analytics},
+    author={Ruijie Tian and Weishi Zhang and Fei Wang and Kemal Polat and Fayadh Alenezi},
+    booktitle={Advanced Engineering Informatics},
+    year={2023}
+}</code></pre>
+            </div>
+            <div style="margin-bottom: 50px;">
+                <h1 class="section-name" style="margin-top: 30px; margin-bottom: 10px; text-align: left; font-size: 25px;">
+                    Contact
+                </h1>
+                <p class="section-content-text">
+                    Feel free to contact us at <strong>trj@dlmu.edu.cn</strong>
+                </p>
+            </div>
+        </div>
+
+
+        <div style="background-color: #f5f5f5; margin-right: auto; margin-left: auto; text-align: center; padding-top: 35px; padding-bottom: 35px;">
+            <a href="https://www.freecounterstat.com" title="web page counter"><img src="https://counter3.optistats.ovh/private/freecounterstat.php?c=szp9jup9ffnllefs9zqlqcekq398mjwn"  border="0" title="web page counter" alt="web page counter"></a>
+            <p>Visitor Count</p>
+        </div>
+        <script type="text/javascript" src="https://counter3.optistats.ovh/private/counter.js?c=szp9jup9ffnllefs9zqlqcekq398mjwn&down=async" async></script><noscript></noscript>
+    </div>
+</body>
+
+<script>
+    var img = document.getElementById('img');
+    var sliderbar = document.getElementById('slider');
+    slider.addEventListener('input', setImage);
+    var img_array = ['results_adjust/pumpkins_input_60.0.png',
+                      'results_adjust/pumpkins_input_50.0.png',
+                      'results_adjust/pumpkins_input_40.0.png',
+                      'results_adjust/pumpkins_input_30.0.png',
+                      'results_adjust/pumpkins_input_10.0.png',
+                      'results_adjust/pumpkins_input_20.0.png',
+                      'results_adjust/pumpkins_input_0.0.png',
+                      'results_adjust/pumpkins_input_-10.0.png',
+                      'results_adjust/pumpkins_input_-20.0.png',
+                      'results_adjust/pumpkins_input_-30.0.png',
+                      'results_adjust/pumpkins_input_-40.0.png',
+                      'results_adjust/pumpkins_input_-50.0.png',
+                      'results_adjust/pumpkins_input_-60.0.png',];
+    function setImage(e)
+    {
+        var {value, max} = e.target;
+        img.src = img_array[parseInt(value/20)];
+    }
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$']]},
+        messageStyle: "none"
+    });
+</script>
